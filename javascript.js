@@ -122,20 +122,32 @@ function establecerOperandos(entrada) {
     if (entrada == "porcentaje"){
         if (operando1 != "" && operador != "" && operando2 != "" && operando2 != "." && !/[\^\%]/.test(operando2)) operando2 += "%";
     }
+    // Almacena la memoria dependiento del operando que estés modicicando
+    if (entrada == "memoria"){
+        if (operando1 != "" && operando1 != "." && !/[\^\%]/.test(operando1) && operador == "" && operando2 == "" && dom_memoria.innerHTML == ""){
+            establecerMemoria(operando1);
+        }
+        if (operando2 != "" && operando2 != "." && !/[\^\%]/.test(operando2) && operador != "" && operando1 != "" && dom_memoria.innerHTML == ""){
+            establecerMemoria(operando2);
+        }
+        if (dom_memoria != "" && operador == "" && operando2 == "") operando1 = dom_memoria.innerHTML;
+        if (dom_memoria != "" && operador != "" && operando1 != "") operando2 = dom_memoria.innerHTML;
+    }
 
-    depurar();
+    // depurar();
     mostrarPorPantalla();
 }
 
 /**
  * Se usa para depurar el código y finalmente establecer por pantalla los 
  * datos que va indicando el usuario a la calculadora
+ * Para ver el funcionamiento, decomenta todos las llamadas a ésta función
  */
-function depurar(){
-    document.getElementById("dom_operador1").innerHTML = "Operador1 => " + operando1;
-    document.getElementById("dom_operador2").innerHTML = "Operador2 => " + operando2;
-    document.getElementById("dom_operador").innerHTML = "Operando => " + operador;
-}
+// function depurar(){
+//     document.getElementById("dom_operador1").innerHTML = "Operador1 => " + operando1;
+//     document.getElementById("dom_operador2").innerHTML = "Operador2 => " + operando2;
+//     document.getElementById("dom_operador").innerHTML = "Operando => " + operador;
+// }
 
 /**
  * Realiza una operación dependiendo del operando que se haya establecido
@@ -158,7 +170,7 @@ function realizarOperacion(){
     
     operador = "";
     operando2 = "";
-    depurar();
+    // depurar();
     establecerHistorial();
     pantalla.innerHTML = arreglarNum(operando1);
 }
@@ -205,7 +217,7 @@ function establecerHistorial(){
     dom_historial.innerHTML = "";
     historial.push({operacion: pantalla.innerHTML, pantalla: arreglarNum(operando1)});
     historial.map(operacion => {
-        dom_historial.innerHTML += `<p>${operacion['operacion']} = ${operacion['pantalla']}</p>`
+        dom_historial.innerHTML += `<p">${operacion['operacion']} = ${operacion['pantalla']}</p>`
     });
 }
 
@@ -217,6 +229,9 @@ function limpiarCalculadora() {
         pantalla.innerHTML = "0";
         limpiar.innerHTML = "CE"
     } else {
+        dom_memoria.innerHTML = "";
+        memoria.classList.remove('bg-yellow-300');
+        memoria.classList.add('bg-yellow-100');
         historial = [];
         dom_historial.innerHTML = "";
     }
@@ -224,9 +239,12 @@ function limpiarCalculadora() {
     operando2 = "";
     operador = "";
 
-    depurar();
+    // depurar();
 }
 
+/**
+ * Cambia la calculadora simple por la científica y viceversa
+ */
 function mostrarCientifica(){
     let btns_cientifica = document.querySelectorAll('.cientifica');
     let caja = document.getElementById('botones');
@@ -235,12 +253,25 @@ function mostrarCientifica(){
         caja.classList.contains('grid-cols-4') ? btn.classList.remove('hidden') : btn.classList.add('hidden');
     });
     if (caja.classList.contains('grid-cols-4')) {
-        document.getElementById('botones').classList.remove('grid-cols-4');
-        document.getElementById('botones').classList.add('grid-cols-6');
+        document.getElementById('calculadora').classList.remove('w-[290px]');
+        document.getElementById('calculadora').classList.add('w-[429px]');
+        caja.classList.remove('grid-cols-4');
+        caja.classList.add('grid-cols-6');
     } else {
-        document.getElementById('botones').classList.remove('grid-cols-6');
-        document.getElementById('botones').classList.add('grid-cols-4');
+        document.getElementById('calculadora').classList.remove('w-[429px]');
+        document.getElementById('calculadora').classList.add('w-[290px]');
+        caja.classList.remove('grid-cols-6');
+        caja.classList.add('grid-cols-4');
     }
+}
+
+/**
+ * 
+ */
+function establecerMemoria(operando){
+    dom_memoria.innerHTML = operando;
+    memoria.classList.remove('bg-yellow-100');
+    memoria.classList.add('bg-yellow-300');
 }
 
 // DEFINICIÓN DE EVENT LISTENERS Y HANDLERS
@@ -282,6 +313,7 @@ tangente.onclick = () => establecerOperandos("tangente");
 
 limpiar.onclick = () => limpiarCalculadora();
 borrar.onclick = () => establecerOperandos("borrar");
+memoria.onclick = () => establecerOperandos("memoria");
 
 darResultado.onclick = () => /[\^]/.test(operando1) && operador == "" ? realizarOperacion() : puedeOperar();
 cientifica.onclick = () => mostrarCientifica();

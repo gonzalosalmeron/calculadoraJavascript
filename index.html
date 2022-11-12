@@ -11,14 +11,19 @@
 </head>
 <body>
     <section class="flex justify-center items-center bg-gray-50 h-screen gap-6">
-        <div class="bg-red-100 px-6 rounded-3xl py-4">
+        <!-- Descomenta este fragmento de código para ver el flujo de las operaciones -->
+        <!-- <div class="bg-red-100 px-6 rounded-3xl py-4">
             <p id="dom_operador1">Operador1 =></p>
             <p id="dom_operador2">Operador2 =></p>
             <p id="dom_operador">Operando =></p>
-        </div>
-        <div class="bg-white rounded-3xl px-5 py-6">
+        </div> -->
+
+        <div class="bg-white rounded-3xl px-5 py-6 relative">
+            <div class="absolute top-4 left-6 z-10">
+                <p class="text-xs text-gray-300">M: <span id="dom_memoria" class="text-gray-400/70"></span></p>
+            </div>
             <!-- PANTALLA -->
-            <div class="w-[429px] h-36 flex flex-col items-end justify-end pb-3 overflow-hidden">
+            <div id="calculadora" class="w-[290px] h-36 flex flex-col items-end justify-end pb-3 overflow-hidden">
                 <!-- HISTORIAL -->
                 <div class="text-gray-400 relative h-full w-full flex flex-col items-end">
                     <div class="bg-gradient-to-b from-white top-0 absolute w-full h-10"></div>
