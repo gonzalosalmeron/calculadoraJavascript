@@ -24,5 +24,4 @@ Además la calculadora diferencia entre 3 tipos de operaciones:</br>
 
 ## 🎮 Funcionamiento
 
-- Un gif del funcionamiento de una operación tipo 2
-<img src="./resources/operaciontipo2.gif" width="900">
+<img src="./resources/operaciontipo2.gif" width="200">
