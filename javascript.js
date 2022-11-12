@@ -225,7 +225,7 @@ function establecerHistorial(){
  * Limpia la pantalla o resetea la calculadora completamente
  */
 function limpiarCalculadora() {
-    if (pantalla.innerHTML != "0"){
+    if (limpiar.innerHTML == "C"){
         pantalla.innerHTML = "0";
         limpiar.innerHTML = "CE"
     } else {
