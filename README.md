@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="media/elmoLogo.png" width="150" >
+  <img src="https://cdn-icons-png.flaticon.com/512/564/564429.png" width="150" >
   <h3 align="center" margin-top="-40">Calculadora</h3>
 </p>
 
@@ -8,7 +8,6 @@
 
 ## 👀 Cómo está programada?
 Esta calculadora está hecha en Javascript, sin el uso de librerías y no hace uso de regex.
-###### (Este ultimo apartado está en desarrollo) <a href="https://youtu.be/ZZqmKjBDXOU">Ver video</a>
 
 ------
 
@@ -26,4 +25,4 @@ Además la calculadora diferencia entre 3 tipos de operaciones:</br>
 ## 🎮 Funcionamiento
 
 - Un gif del funcionamiento de una operación tipo 2
-<img src="media/1.png" width="900">
+<img src="./resources/operaciontipo2.gif" width="900">
